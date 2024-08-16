@@ -1,6 +1,6 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from settings import Settings
+from routes.routes import Routes
 from allure import step
 from selenium.webdriver.common.action_chains import ActionChains
 
@@ -9,7 +9,7 @@ class BasePage:
 
     def __init__(self, driver):
         self.driver = driver
-        self.base_url = Settings().base_url
+        self.base_url = Routes().main_route
 
     @step('Поиск элемента')
     def find_element(self, locator, time=10):
@@ -24,6 +24,10 @@ class BasePage:
     @step('Элемент виден на странице')
     def element_is_visible(self, locator, time=10):
         return WebDriverWait(self.driver, time).until(EC.visibility_of_element_located(locator))
+
+    @step('Проверка, что URL хранит ожидаемый текст')
+    def assert_text_in_current_url(self, text, time=10):
+        return WebDriverWait(self.driver, time).until(EC.url_contains(text))
 
     @step('Ожидание изменения URL')
     def wait_for_url(self, url_fragment, time=10):
@@ -51,5 +55,8 @@ class BasePage:
         action = ActionChains(self.driver)
         action.drag_and_drop(drag, drop).perform()
 
+    @step('Запрос URL страницы')
+    def get_url_page(self):
+        return self.driver.current_url
 
 

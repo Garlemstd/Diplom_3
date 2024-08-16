@@ -41,6 +41,6 @@ class OrdersFeedLocators:
     ORDER_NUMBER_IN_MODAL_WINDOWS = (By.CSS_SELECTOR, ".Modal_modal__title_shadow__3ikwq")
     ORDER_NUMBER_IN_ORDER_LIST_IN_PERSONAL_ACCOUNT = (By.CSS_SELECTOR,
                                                       ".OrderHistory_textBox__3lgbs > .text_type_digits-default")
-
+    # Этот селектор валидно работает только, если количество созданных заказов равно одному!
 
 

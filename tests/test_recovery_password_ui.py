@@ -13,7 +13,7 @@ class TestRecoveryPassword:
         with allure.step('Переход на страницу восстановление пароля после нажатия на кнопку "Восстановить пароль"'):
             login_page_step.click_to_password_recovery_button()
         with allure.step('Проверка, что url страницы соответствует странице восстановления пароля '):
-            assert routes.recovery_password in browser.current_url
+            assert routes.recovery_password in login_page_step.get_url_page()
 
     @allure.title('Проверка перехода на дальнейшую страницу восстановления после нажатия на кнопку восстановления')
     def test_input_email_to_recovery_password_and_click_to_recovery_btn(self, user_data, browser,
@@ -30,7 +30,7 @@ class TestRecoveryPassword:
         with allure.step('Нажатие на кнопку восстановления пароля и проверка, что мы  на странице восстановления'):
             login_page_step.click_to_recovery_button()
             login_page_step.wait_for_url(routes.reset_password)
-            assert routes.reset_password in browser.current_url
+            assert routes.reset_password in login_page_step.get_url_page()
 
     @allure.title('Проверка фокусировки поля ввода пароля при нажатии на поле ввода пароля')
     def test_check_password_input_is_focused_if_click_on_him(self, user_data, browser, text_for_asserts, routes):

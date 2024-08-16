@@ -5,14 +5,12 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from utils import authorization_header
 from selenium import webdriver
 import requests
-from routes.routes import Routes
 from data.user_data import UserRegistrationModel, UserLoginModel
 from pages.login_page import LoginPageActions
 from pathlib import Path
 from pages.main_page import MainPageActions
 from data.data_for_asserts import DataForAsserts
-from settings import Settings
-
+from routes.routes import Routes
 
 def pytest_addoption(parser):
     parser.addoption(
@@ -25,7 +23,7 @@ def pytest_addoption(parser):
 @pytest.fixture(scope="session")
 def browser(request):
     browser_name = request.config.getoption("--browser")
-    driver_path = Path(__file__).parent.parent / "driver"
+    driver_path = Path(__file__).parent.parent / "driver"  # Запускать тесты нужно из корня проекта
     if browser_name == "chrome":
         service = ChromeService(executable_path=str(driver_path / "chromedriver.exe"))
         driver = webdriver.Chrome(service=service)
@@ -54,10 +52,10 @@ def user_data():
 @step('Создание пользователя для теста и удаление после теста')
 @pytest.fixture
 def create_and_delete_user_for_test(routes):
-    requests.post(url=f'{Settings().base_url}{routes.api_register_user}', json=UserRegistrationModel().dict())
-    token = requests.post(url=f'{Settings().base_url}{routes.api_login}', json=UserLoginModel().dict()).json()["accessToken"]
+    requests.post(url=f'{Routes().main_route}{routes.api_register_user}', json=UserRegistrationModel().dict())
+    token = requests.post(url=f'{Routes().main_route}{routes.api_login}', json=UserLoginModel().dict()).json()["accessToken"]
     yield
-    requests.delete(url=f'{Settings().base_url}{routes.api_user}', headers=authorization_header(token))
+    requests.delete(url=f'{Routes().main_route}{routes.api_user}', headers=authorization_header(token))
 
 
 @step('Создание заказа для теста')

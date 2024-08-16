@@ -11,7 +11,7 @@ class TestMainFunctional:
         login_page_step = LoginPageActions(browser)
         login_page_step.go_to_site()
         main_page_step.click_to_constructor_button()
-        assert main_page_step.assert_constructor_page_active
+        assert main_page_step.assert_constructor_page_active()
 
     @allure.title('Переход на страницу заказов')
     def test_go_to_order_feed_page(self, browser, routes):
@@ -19,7 +19,7 @@ class TestMainFunctional:
         login_page_step = LoginPageActions(browser)
         login_page_step.go_to_site()
         main_page_step.get_orders_feed_element().click()
-        assert routes.orders_feed in browser.current_url
+        assert routes.orders_feed in main_page_step.get_url_page()
 
     @allure.title('Появляется модальное окно при нажатии на ингредиент')
     def test_check_modal_window_if_click_on_ingredient(self, browser):
@@ -27,7 +27,7 @@ class TestMainFunctional:
         login_page_step = LoginPageActions(browser)
         login_page_step.go_to_site()
         main_page_step.get_ingredient_element().click()
-        assert main_page_step.assert_modal_window_is_visible
+        assert main_page_step.assert_modal_window_is_visible()
 
     @allure.title('Модальное окно закрывается при нажатии на крестик')
     def test_modal_window_closing_if_click_to_cross(self, browser):
@@ -63,7 +63,7 @@ class TestMainFunctional:
             login_page_step.click_to_accept_button()
         with allure.step('Создание заказа'):
             main_page_step.click_to_make_an_order_button()
-            assert main_page_step.assert_modal_window_is_visible
+            assert main_page_step.assert_modal_window_is_visible()
 
 
 

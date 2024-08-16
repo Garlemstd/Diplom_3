@@ -12,7 +12,7 @@ class TestOrdersFeed:
         order_feed_steps = OrderFeedPageActions(browser)
         main_page_step.get_orders_feed_element().click()
         order_feed_steps.get_order_in_order_page().click()
-        assert main_page_step.assert_modal_window_is_visible
+        assert main_page_step.assert_modal_window_is_visible()
 
     @allure.title('Проверка, что заказ отображается в истории заказов в личном кабинете')
     def test_orders_from_order_history_visible_in_orders(self, browser, user_authorization):

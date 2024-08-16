@@ -65,7 +65,6 @@ class MainPageActions(BasePage):
         self.assert_modal_window_can_be_closing()
         return self.find_element(self.elements.CLOSING_MODAL_WINDOW_AFTER_MAKE_AN_ORDER).click()
 
-
     @step('Проверка, что модальное окно открыто')
     def assert_modal_window_is_visible(self):
         return self.modal_window_is_open(MainPageLocators.MODAL_WINDOW)
